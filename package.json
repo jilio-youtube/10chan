@@ -1,0 +1,25 @@
+{
+  "name": "10chan",
+  "version": "1.0.0",
+  "description": "10chan",
+  "main": "index.js",
+  "dependencies": {
+    "koa": "^1.2.4",
+    "koa-logger": "^1.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jilio-youtube/10chan.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jilio-youtube/10chan/issues"
+  },
+  "homepage": "https://github.com/jilio-youtube/10chan#readme"
+}
