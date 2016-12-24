@@ -1,11 +1,15 @@
+// dependecies
 const koa = require('koa');
 const logger = require('koa-logger');
-const app = koa();
+const serve = require('koa-static');
 
-app.use(logger());
+// server
+const server = koa();
 
-app.use(function *(){
-  this.body = '<b>10chan</b><br\>Добро пожаловать. Снова!';
-});
-
-app.listen(3000);
+server
+  .use(logger())
+  .use(serve('uploads'))
+  .use(function *(){
+    this.body = '<b>10chan</b><br\>Добро пожаловать. Снова!';
+  })
+  .listen(3000);
