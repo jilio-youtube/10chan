@@ -1,4 +1,4 @@
-// dependecies
+// dependencies
 const koa = require('koa');
 const logger = require('koa-logger');
 const serve = require('koa-static');
@@ -8,8 +8,5 @@ const server = koa();
 
 server
   .use(logger())
-  .use(serve('uploads'))
-  .use(function *(){
-    this.body = '<b>10chan</b><br\>Добро пожаловать. Снова!';
-  })
+  .use(serve('public'))
   .listen(3000);
