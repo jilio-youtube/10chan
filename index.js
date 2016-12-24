@@ -17,12 +17,14 @@ server
 router.get('/thread', function* () {
   this.body = [
     {
-      label: '10chan here',
-      text: 'yaya'
+      title: '10chan here',
+      text: 'yaya',
+      image: 'df.png'
     },
     {
-      label: '10chan here. again.',
-      text: 'yaya x2'
+      title: '10chan here. again.',
+      text: 'yaya x2',
+      image: 'titbit.jpg'
     }
   ];
 })
