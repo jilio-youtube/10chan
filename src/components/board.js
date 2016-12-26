@@ -1,5 +1,6 @@
 import React from 'react';
 import Thread from './thread';
+import { Container, Button, Item, Header } from 'semantic-ui-react';
 
 class Board extends React.Component {
   constructor() {
@@ -17,15 +18,19 @@ class Board extends React.Component {
   }
   render() {
     return (
-      <div>
-      {this.state.threads.map(thread => (
-        <Thread
-          title={thread.title}
-          text={thread.text}
-          image={thread.image}
-        />
-      ))}
-      </div>
+      <Container>
+        <Header as='h1' style={{marginTop: 10}}>10chan</Header>
+        <Item.Group>
+          {this.state.threads.map(thread => (
+            <Thread
+              title={thread.title}
+              text={thread.text}
+              image={thread.image}
+            />
+          ))}
+        </Item.Group>
+        <Button>Ответить в тред</Button>
+      </Container>
     )
   }
 }
