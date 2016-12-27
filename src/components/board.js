@@ -1,16 +1,14 @@
 import React from 'react';
+import { Container, Button, Item, Header } from 'semantic-ui-react';
 import Thread from './thread';
-import { Container, Button, Item, Header, Form } from 'semantic-ui-react';
-import Dropzone from 'react-dropzone-component';
+import ThreadCreateForm from './thread_create_form';
 
 class Board extends React.Component {
   constructor() {
     super();
     this.state = {
       threads: [],
-
-      newPostText: '',
-      newPostImage: undefined,
+      showThreadCreateForm: false,
     }
   }
   componentDidMount() {
@@ -33,43 +31,20 @@ class Board extends React.Component {
             />
           ))}
         </Item.Group>
-        <Button>Создать тред</Button>
-
-        <Form>
-          <Form.Field>
-            <label>Сообщение</label>
-            <input placeholder='Оп молодец' onChange={
-              (event) => this.setState({ newPostText: event.target.value })
-            }/>
-          </Form.Field>
-          <Form.Field>
-            <Dropzone
-              config={{ postUrl: 'no-url' }}
-              eventHandlers={{
-                addedfile: (file) => this.setState({ newPostImage: file })
-              }}
-              djsConfig={{ autoProcessQueue: false }}
-            />
-          </Form.Field>
-          <Button onClick={this.submit.bind(this)}>Отправить</Button>
-        </Form>
+        {
+          (this.state.showThreadCreateForm)
+            ? <div>
+                <Button onClick={() => this.setState({showThreadCreateForm: false})}>
+                  Закрыть форму постинга
+                </Button>
+                <ThreadCreateForm />
+              </div>
+            : <Button onClick={() => this.setState({showThreadCreateForm: true})}>
+                Создать тред
+              </Button>
+        }
       </Container>
     )
-  }
-
-  submit(event) {
-    event.preventDefault();
-
-    let formData = new FormData();
-    formData.append('text', this.state.newPostText);
-    formData.append('image', this.state.newPostImage);
-
-    fetch('/thread', {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => response.json())
-      .then(json => console.log(json));
   }
 }
 
