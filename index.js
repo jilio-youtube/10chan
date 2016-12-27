@@ -1,12 +1,11 @@
 // dependencies
-const koa = require('koa');
+const server = require('koa')();
+const router = require('koa-router')();
 const logger = require('koa-logger');
 const serve = require('koa-static');
-const router = require('koa-router')();
+const body = require('koa-body');
 
 // server
-const server = koa();
-
 server
   .use(logger())
   .use(serve('public'))
@@ -28,3 +27,14 @@ router.get('/thread', function* () {
     }
   ];
 })
+
+router.post(
+  '/thread',
+  body({
+    multipart: true,
+    formidable: { uploadDir: 'uploads/' }
+  }),
+  function* () {
+    this.body = { ok: '10chan OK' };
+  }
+);
