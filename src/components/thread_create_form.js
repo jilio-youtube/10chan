@@ -13,12 +13,14 @@ class ThreadCreateForm extends Component {
   render() {
     return (
       <Form>
-        <Form.Field>
-          <label>Сообщение</label>
-          <input placeholder='Оп молодец' onChange={
+        <Form.Field
+          label='Пост'
+          control='textarea'
+          rows='3'
+          onChange={
             (event) => this.setState({ text: event.target.value })
-          }/>
-        </Form.Field>
+          }
+        />
         <Form.Field>
           <Dropzone
             config={{ postUrl: 'no-url' }}

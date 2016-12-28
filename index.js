@@ -9,23 +9,16 @@ const body = require('koa-body');
 server
   .use(logger())
   .use(serve('public'))
+  .use(serve('uploads'))
   .use(router.routes())
   .listen(3000);
 
+// db
+let threads = [];
+
 // routes
 router.get('/thread', function* () {
-  this.body = [
-    {
-      title: '10chan here',
-      text: 'yaya',
-      image: 'df.png'
-    },
-    {
-      title: '10chan here. again.',
-      text: 'yaya x2',
-      image: 'titbit.jpg'
-    }
-  ];
+  this.body = threads;
 })
 
 router.post(
@@ -35,6 +28,9 @@ router.post(
     formidable: { uploadDir: 'uploads/' }
   }),
   function* () {
+    const text = this.request.body.fields.text;
+    const image = this.request.body.files.image.path.replace('uploads', '');
+    threads.push({text, image})
     this.body = { ok: '10chan OK' };
   }
 );
