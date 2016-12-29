@@ -22,6 +22,22 @@ class Board extends React.Component {
     return (
       <Container>
         <Header as='h1' style={{marginTop: 10}}>10chan</Header>
+
+        {
+          (this.state.showThreadCreateForm)
+            ? <div>
+                <Button onClick={() => this.setState({showThreadCreateForm: false})}>
+                  Закрыть форму постинга
+                </Button>
+                <ThreadCreateForm onSubmit={(threads) => {
+                  this.setState({ threads, showThreadCreateForm: false });
+                }}/>
+              </div>
+            : <Button onClick={() => this.setState({showThreadCreateForm: true})}>
+                Создать тред
+              </Button>
+        }
+
         <Item.Group>
           {this.state.threads.map(thread => (
             <Thread
@@ -31,18 +47,6 @@ class Board extends React.Component {
             />
           ))}
         </Item.Group>
-        {
-          (this.state.showThreadCreateForm)
-            ? <div>
-                <Button onClick={() => this.setState({showThreadCreateForm: false})}>
-                  Закрыть форму постинга
-                </Button>
-                <ThreadCreateForm />
-              </div>
-            : <Button onClick={() => this.setState({showThreadCreateForm: true})}>
-                Создать тред
-              </Button>
-        }
       </Container>
     )
   }

@@ -37,6 +37,8 @@ class ThreadCreateForm extends Component {
 
   submit(event) {
     const {text, image} = this.state;
+    const {onSubmit} = this.props;
+
     event.preventDefault();
 
     let formData = new FormData();
@@ -48,7 +50,13 @@ class ThreadCreateForm extends Component {
       body: formData
     })
       .then(response => response.json())
-      .then(json => console.log(json));
+      .then(json => {
+        onSubmit(json.threads);
+        this.setState({
+          text: '',
+          image: undefined
+        });
+      });
   }
 }
 
