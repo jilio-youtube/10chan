@@ -38,14 +38,8 @@ class Board extends React.Component {
               </Button>
         }
 
-        <Item.Group>
-          {this.state.threads.map(thread => (
-            <Thread
-              title={thread.title}
-              text={thread.text}
-              image={thread.image}
-            />
-          ))}
+        <Item.Group divided>
+          {this.state.threads.map(thread => <Thread {...thread}/>)}
         </Item.Group>
       </Container>
     )

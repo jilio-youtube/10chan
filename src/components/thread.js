@@ -1,14 +1,16 @@
 import React from 'react';
-import { Image, Item } from 'semantic-ui-react';
+import { Image, Item, Button } from 'semantic-ui-react';
 
 class Thread extends React.Component {
   render() {
-    const {title, text, image} = this.props;
+    const {id, text, image} = this.props;
     return (
       <Item>
         <Item.Image size='small' src={image} />
         <Item.Content>
-          {/*<Item.Header as='a'></Item.Header>*/}
+          <Item.Header>
+            №{id} <Button>Ответ</Button>
+          </Item.Header>
           {/*<Item.Meta>Description</Item.Meta>*/}
           <Item.Description>
             {text}
