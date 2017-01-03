@@ -9,6 +9,7 @@ class Board extends React.Component {
     this.state = {
       threads: [],
       showThreadCreateForm: false,
+      currentThread: undefined,
     }
   }
   componentDidMount() {
@@ -21,26 +22,55 @@ class Board extends React.Component {
   render() {
     return (
       <Container>
-        <Header as='h1' style={{marginTop: 10}}>10chan</Header>
+        <Header
+          as='h1'
+          style={{marginTop: 10}}
+          onClick={() => this.setState({ currentThread: undefined })}
+        >
+          10chan
+        </Header>
 
         {
-          (this.state.showThreadCreateForm)
+          (this.state.currentThread)
             ? <div>
-                <Button onClick={() => this.setState({showThreadCreateForm: false})}>
-                  Закрыть форму постинга
-                </Button>
-                <ThreadCreateForm onSubmit={(threads) => {
-                  this.setState({ threads, showThreadCreateForm: false });
-                }}/>
+                <Header size='medium'>Трэд №{this.state.currentThread}</Header>
+                <Item.Group divided>
+                    {this.state.threads
+                      .filter(thread => thread.id == this.state.currentThread)
+                      .map(thread =>
+                        <Thread
+                          {...thread}
+                          select={(currentThread) => this.setState({ currentThread })}
+                        />
+                      )}
+                  </Item.Group>
               </div>
-            : <Button onClick={() => this.setState({showThreadCreateForm: true})}>
-                Создать тред
-              </Button>
+            : <div>
+                {
+                  (this.state.showThreadCreateForm)
+                    ? <div>
+                        <Button onClick={() => this.setState({showThreadCreateForm: false})}>
+                          Закрыть форму постинга
+                        </Button>
+                        <ThreadCreateForm onSubmit={(threads) => {
+                          this.setState({ threads, showThreadCreateForm: false });
+                        }}/>
+                      </div>
+                    : <Button onClick={() => this.setState({showThreadCreateForm: true})}>
+                        Создать тред
+                      </Button>
+                }
+                
+                <Item.Group divided>
+                  {this.state.threads.map(thread =>
+                    <Thread
+                      {...thread}
+                      select={(currentThread) => this.setState({ currentThread })}
+                    />
+                  )}
+                </Item.Group>
+              </div>
         }
-
-        <Item.Group divided>
-          {this.state.threads.map(thread => <Thread {...thread}/>)}
-        </Item.Group>
       </Container>
     )
   }
