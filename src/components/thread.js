@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, Item, Button } from 'semantic-ui-react';
+import PostingForm from './thread_add_post';
 
 class Thread extends React.Component {
   render() {
@@ -16,6 +17,7 @@ class Thread extends React.Component {
             {text}
           </Item.Description>
           {/*<Item.Extra>Additional Details</Item.Extra>*/}
+          <PostingForm thread={id}/>
         </Item.Content>
       </Item>
     )

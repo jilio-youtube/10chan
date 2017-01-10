@@ -2,22 +2,22 @@ import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone-component';
 
-class ThreadCreateForm extends Component {
+class PostingForm extends Component {
   constructor() {
     super();
     this.state = {
       text: '',
       image: undefined,
-      showThreadCreateForm: false
+      showPostingForm: false
     }
   }
   render() {
     const {onSubmit} = this.props;
-    const {showThreadCreateForm} = this.state;
+    const {showPostingForm} = this.state;
 
-    if (showThreadCreateForm) return (
+    if (showPostingForm) return (
       <div>
-        <Button onClick={() => this.setState({showThreadCreateForm: false})}>
+        <Button onClick={() => this.setState({showPostingForm: false})}>
           Закрыть форму постинга
         </Button>
         <Form>
@@ -43,23 +43,24 @@ class ThreadCreateForm extends Component {
       </div>
     );
     else return (
-      <Button onClick={() => this.setState({showThreadCreateForm: true})}>
-        Создать тред
+      <Button onClick={() => this.setState({showPostingForm: true})}>
+        Ответить
       </Button>
     )
   }
 
   submit(event) {
     const {text, image} = this.state;
-    const {onSubmit} = this.props;
+    const {onSubmit, thread} = this.props;
 
     event.preventDefault();
 
     let formData = new FormData();
     formData.append('text', text);
     formData.append('image', image);
+    formData.append('thread', thread)
 
-    fetch('/thread', {
+    fetch('/post', {
       method: 'POST',
       body: formData
     })
@@ -69,10 +70,10 @@ class ThreadCreateForm extends Component {
         this.setState({
           text: '',
           image: undefined,
-          showThreadCreateForm: false,
+          showPostingForm: false,
         });
       });
   }
 }
 
-export default ThreadCreateForm;
+export default PostingForm;
